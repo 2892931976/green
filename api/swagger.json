@@ -1,0 +1,791 @@
+{
+    "swagger": "2.0",
+    "info": {
+        "version": "1.0.0",
+        "title": "接口文档",
+        "description": "点击右上角`Authorize`切换token\n"
+    },
+    "basePath": "/",
+    "schemes": [
+        "http"
+    ],
+    "consumes": [
+        "application/json",
+        "multipart/form-data",
+        "text/plain"
+    ],
+    "produces": [
+        "application/json"
+    ],
+    "securityDefinitions": {
+        "xauth": {
+            "type": "apiKey",
+            "name": "access_token",
+            "in": "query"
+        }
+    },
+    "security": [
+        {
+            "xauth": []
+        }
+    ],
+    "paths": {
+        "/address/search": {
+            "post": {
+                "summary": "查找地址",
+                "tags": [
+                    "address"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.SearchAddress"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.SearchData"
+                        }
+                    }
+                }
+            }
+        },
+        "/file/export/csv": {
+            "post": {
+                "summary": "导出csv表格文件",
+                "tags": [
+                    "file"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "filename",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "items": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "type": "array"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/file/export/xlsx": {
+            "post": {
+                "summary": "导出xlsx表格文件",
+                "tags": [
+                    "file"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "filename",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "items": {
+                                "items": {
+                                    "type": "string"
+                                },
+                                "type": "array"
+                            },
+                            "type": "array"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/file/upload": {
+            "post": {
+                "summary": "上传文件",
+                "tags": [
+                    "file"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file",
+                        "paramType": "form",
+                        "allowMultiple": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/file/upload/base64": {
+            "post": {
+                "summary": "上传base64文件",
+                "tags": [
+                    "file"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "filename",
+                        "description": "文件名",
+                        "type": "string"
+                    },
+                    {
+                        "in": "body",
+                        "name": "body"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/bind/email": {
+            "get": {
+                "summary": "绑定邮箱",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "code",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/bind/telphone": {
+            "get": {
+                "summary": "绑定电话号码",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "telphone",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "code",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/change/avatar": {
+            "post": {
+                "summary": "修改自己头像",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "formData",
+                        "name": "file",
+                        "type": "file",
+                        "paramType": "form",
+                        "allowMultiple": true
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "string"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/change/info": {
+            "post": {
+                "summary": "修改个人信息",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.UserBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/change/password/email": {
+            "post": {
+                "summary": "email 修改密码",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.EmailRegisterBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.UserAccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/change/password/old": {
+            "post": {
+                "summary": "旧密码 修改密码",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.OldpwdBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.UserAccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/change/password/telphone": {
+            "post": {
+                "summary": "telphone 修改密码",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.TelphoneRegisterBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.UserAccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/create": {
+            "get": {
+                "summary": "管理员创建用户",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "title",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "password",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/delete": {
+            "post": {
+                "summary": "管理员删除用户",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "items": {
+                                "type": "integer"
+                            },
+                            "type": "array"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "integer"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/login": {
+            "get": {
+                "summary": "登录",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "key",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "password",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.UserAccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/logout": {
+            "get": {
+                "summary": "注销",
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/mine/info": {
+            "get": {
+                "summary": "我的信息",
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.User"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register/email": {
+            "post": {
+                "summary": "邮箱注册",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.EmailRegisterBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.UserAccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/register/telphone": {
+            "post": {
+                "summary": "手机注册",
+                "tags": [
+                    "user"
+                ],
+                "parameters": [
+                    {
+                        "in": "body",
+                        "name": "body",
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.service.TelphoneRegisterBody"
+                        }
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "$ref": "#/definitions/github.com.inu1255.goweb.model.UserAccess"
+                        }
+                    }
+                }
+            }
+        },
+        "/user/unbind/email": {
+            "get": {
+                "summary": "解绑邮箱",
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/user/unbind/telphone": {
+            "get": {
+                "summary": "解绑手机号",
+                "tags": [
+                    "user"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/verify/image": {
+            "get": {
+                "summary": "图片验证码",
+                "tags": [
+                    "verify"
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {}
+                    }
+                }
+            }
+        },
+        "/verify/send/email/code": {
+            "get": {
+                "summary": "发送邮箱验证码",
+                "tags": [
+                    "verify"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "email",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        },
+        "/verify/send/telphone/code": {
+            "get": {
+                "summary": "发送短信验证码",
+                "tags": [
+                    "verify"
+                ],
+                "parameters": [
+                    {
+                        "in": "query",
+                        "name": "telphone",
+                        "type": "string"
+                    },
+                    {
+                        "in": "query",
+                        "name": "imagecode",
+                        "type": "string"
+                    }
+                ],
+                "responses": {
+                    "200": {
+                        "schema": {
+                            "type": "boolean"
+                        }
+                    }
+                }
+            }
+        }
+    },
+    "definitions": {
+        ".map": {
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.model.AccessToken": {
+            "properties": {
+                "create_at": {
+                    "$ref": "#/definitions/github.com.inu1255.goweb.model.Time",
+                    "description": ""
+                },
+                "expired_at": {
+                    "$ref": "#/definitions/github.com.inu1255.goweb.model.Time",
+                    "description": "过期时间"
+                },
+                "id": {
+                    "description": "",
+                    "type": "integer"
+                },
+                "token": {
+                    "description": "身份密钥",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.model.Time": {
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.model.User": {
+            "properties": {
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "create_at": {
+                    "$ref": "#/definitions/github.com.inu1255.goweb.model.Time",
+                    "description": ""
+                },
+                "email": {
+                    "description": "邮箱",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "",
+                    "type": "integer"
+                },
+                "nickname": {
+                    "description": "用户昵称",
+                    "type": "string"
+                },
+                "role": {
+                    "description": "用户角色",
+                    "type": "string"
+                },
+                "telphone": {
+                    "description": "电话号码",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.model.UserAccess": {
+            "properties": {
+                "access": {
+                    "$ref": "#/definitions/github.com.inu1255.goweb.model.AccessToken",
+                    "description": ""
+                },
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "create_at": {
+                    "$ref": "#/definitions/github.com.inu1255.goweb.model.Time",
+                    "description": ""
+                },
+                "email": {
+                    "description": "邮箱",
+                    "type": "string"
+                },
+                "id": {
+                    "description": "",
+                    "type": "integer"
+                },
+                "nickname": {
+                    "description": "用户昵称",
+                    "type": "string"
+                },
+                "role": {
+                    "description": "用户角色",
+                    "type": "string"
+                },
+                "telphone": {
+                    "description": "电话号码",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.service.EmailRegisterBody": {
+            "properties": {
+                "code": {
+                    "description": "",
+                    "type": "string"
+                },
+                "email": {
+                    "description": "",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.service.OldpwdBody": {
+            "properties": {
+                "email": {
+                    "description": "",
+                    "type": "string"
+                },
+                "oldpwd": {
+                    "description": "旧密码",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "",
+                    "type": "string"
+                },
+                "telphone": {
+                    "description": "",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.service.SearchAddress": {
+            "properties": {
+                "keyword": {
+                    "description": "地址 如:'北京|'",
+                    "type": "string"
+                },
+                "order_by": {
+                    "description": "排序规则:-id",
+                    "type": "string"
+                },
+                "page": {
+                    "description": "",
+                    "type": "integer"
+                },
+                "parent_id": {
+                    "description": "父地址id",
+                    "type": "integer"
+                },
+                "size": {
+                    "description": "",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.service.SearchData": {
+            "properties": {
+                "content": {
+                    "description": "数据数组",
+                    "items": {},
+                    "type": "array"
+                },
+                "ext": {
+                    "description": "附加数据"
+                },
+                "total": {
+                    "description": "数据总量",
+                    "type": "integer"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.service.TelphoneRegisterBody": {
+            "properties": {
+                "code": {
+                    "description": "",
+                    "type": "string"
+                },
+                "password": {
+                    "description": "",
+                    "type": "string"
+                },
+                "telphone": {
+                    "description": "",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
+        "github.com.inu1255.goweb.service.UserBody": {
+            "properties": {
+                "avatar": {
+                    "description": "头像",
+                    "type": "string"
+                },
+                "nickname": {
+                    "description": "昵称",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        }
+    }
+}
