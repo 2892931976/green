@@ -5,6 +5,7 @@
 * 你可以就像写本地函数一样写restful接口,接口之间甚至可以互相调用
 * 采用参数注入的方式,代码更简洁
 * 自动生成接口文档
+* 基于[gin](https://github.com/gin-gonic/gin)二次封装
 
 ## 内置常用接口:
 * 文件上传接口
@@ -17,11 +18,12 @@
 
 ### 1. 快速开始
 ``` bash
+# 安装 green
 go get github.com/inu1255/green
 # 新建项目
 git clone https://github.com/inu1255/green.git your_project_dir
 cd your_project_dir
-# 将包名都改成 your_project_dir
+# 通过main.go中的rename() 将包名都改成 your_project_dir 
 go run -ldflags=-s main.go
 # 修改 main.go ,取消注释 run() ,注释掉 rename()
 # func main() {
@@ -50,13 +52,13 @@ func (*HelloService)SayHello() (string,error) {
 }
 
 // 私有函数不会转换成接口
-func (*HelloService)add(a int,b int) (int,error) {
+func (*HelloService)add(a,b int) (int,error) {
     return a+b,nil
 }
 
 // ?a=1&b=2会自动注入到参数 a,b 中
 // 详细请参考 关于参数注入
-func (this *HelloService)Add(a int,b int) (int,error) {
+func (this *HelloService)Add(a,b int) (int,error) {
     return this.add(a,b)
 }
 
