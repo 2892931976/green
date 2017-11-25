@@ -132,6 +132,5 @@ func (this *VerifyService) JudgeImageCode(ctx *gin.Context, code string) error {
 func RandCode() string {
 	length := config.Cfg.Secure.VerifyCodeLengh
 	r := random.New()
-	r.SetCharset(random.Numeric)
-	return r.String(uint8(length))
+	return r.String(uint8(length), random.Numeric)
 }
